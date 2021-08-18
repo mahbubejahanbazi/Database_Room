@@ -51,10 +51,10 @@ public class MainActivity extends AppCompatActivity {
                 Calendar calendar = Calendar.getInstance();
                 Date time = calendar.getTime();
                 String formatDate = dateFormat.format(time);
-                Time mJTime = new Time(formatDate);
-                timeViewModel.insert(mJTime);
+                Time time1 = new Time(formatDate);
+                timeViewModel.insert(time1);
                 Toast.makeText(view.getContext(), "inserting " +
-                        mJTime.getCurrentTime(), Toast.LENGTH_SHORT).show();
+                        time1.getCurrentTime(), Toast.LENGTH_SHORT).show();
             }
         });
         ItemTouchHelper helper = new ItemTouchHelper(

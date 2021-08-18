@@ -13,7 +13,7 @@ import java.util.concurrent.Executors;
 
 @Database(entities = {Time.class}, version = 1, exportSchema = false)
 public abstract class TimeDatabase extends RoomDatabase {
-    public abstract TimeDao getMJTimeDao();
+    public abstract TimeDao getTimeDao();
 
     private static volatile TimeDatabase instance;
     private static final int NUMBER_OF_THREADS = 4;
@@ -38,7 +38,7 @@ public abstract class TimeDatabase extends RoomDatabase {
         public void onCreate(@NonNull SupportSQLiteDatabase db) {
             super.onCreate(db);
             databaseExecuter.execute(() -> {
-                TimeDao dao = instance.getMJTimeDao();
+                TimeDao dao = instance.getTimeDao();
                 dao.deleteAll();
                 Time time = new Time(System.currentTimeMillis() + "");
                 dao.insert(time);

@@ -12,7 +12,7 @@ public class TimeRepository {
 
     public TimeRepository(Application application) {
         TimeDatabase db = TimeDatabase.getDB(application);
-        dao = db.getMJTimeDao();
+        dao = db.getTimeDao();
         allTime = dao.getAllTime();
     }
 
