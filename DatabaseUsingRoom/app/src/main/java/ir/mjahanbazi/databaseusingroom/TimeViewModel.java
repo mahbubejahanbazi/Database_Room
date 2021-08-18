@@ -7,21 +7,21 @@ import androidx.lifecycle.LiveData;
 
 import java.util.List;
 
-public class MJTimeViewModel extends AndroidViewModel {
-    private MJTimeRepository repository;
-    private final LiveData<List<MJTime>> allTime;
+public class TimeViewModel extends AndroidViewModel {
+    private TimeRepository repository;
+    private final LiveData<List<Time>> allTime;
 
-    public MJTimeViewModel(Application application) {
+    public TimeViewModel(Application application) {
         super(application);
-        repository = new MJTimeRepository(application);
+        repository = new TimeRepository(application);
         allTime = repository.getAllTime();
     }
 
-    public LiveData<List<MJTime>> getAllTime() {
+    public LiveData<List<Time>> getAllTime() {
         return allTime;
     }
 
-    public void insert(MJTime currentTime) {
+    public void insert(Time currentTime) {
         repository.insert(currentTime);
     }
 
@@ -29,7 +29,7 @@ public class MJTimeViewModel extends AndroidViewModel {
         repository.update(id, currentTime);
     }
 
-    public void delete(MJTime currentTime) {
+    public void delete(Time currentTime) {
         repository.delete(currentTime);
     }
 

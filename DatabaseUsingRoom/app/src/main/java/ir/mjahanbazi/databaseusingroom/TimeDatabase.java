@@ -11,20 +11,20 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {MJTime.class}, version = 1, exportSchema = false)
-public abstract class MJTimeDatabase extends RoomDatabase {
-    public abstract MJTimeDao getMJTimeDao();
+@Database(entities = {Time.class}, version = 1, exportSchema = false)
+public abstract class TimeDatabase extends RoomDatabase {
+    public abstract TimeDao getMJTimeDao();
 
-    private static volatile MJTimeDatabase instance;
+    private static volatile TimeDatabase instance;
     private static final int NUMBER_OF_THREADS = 4;
     public static final ExecutorService databaseExecuter = Executors.newFixedThreadPool(NUMBER_OF_THREADS);
 
-    public static MJTimeDatabase getDB(final Context context) {
+    public static TimeDatabase getDB(final Context context) {
         if (instance == null) {
-            synchronized (MJTimeDatabase.class) {
+            synchronized (TimeDatabase.class) {
                 if (instance == null) {
                     instance = Room.databaseBuilder(context.getApplicationContext(),
-                            MJTimeDatabase.class, "time_database")
+                            TimeDatabase.class, "time_database")
                             .addCallback(callback)
                             .build();
                 }
@@ -38,9 +38,9 @@ public abstract class MJTimeDatabase extends RoomDatabase {
         public void onCreate(@NonNull SupportSQLiteDatabase db) {
             super.onCreate(db);
             databaseExecuter.execute(() -> {
-                MJTimeDao dao = instance.getMJTimeDao();
+                TimeDao dao = instance.getMJTimeDao();
                 dao.deleteAll();
-                MJTime time = new MJTime(System.currentTimeMillis() + "");
+                Time time = new Time(System.currentTimeMillis() + "");
                 dao.insert(time);
 
             });

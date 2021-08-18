@@ -21,7 +21,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static MJTimeViewModel timeViewModel;
+    private static TimeViewModel timeViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,15 +29,15 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         timeViewModel = new ViewModelProvider(this, ViewModelProvider.
                 AndroidViewModelFactory.getInstance(this.getApplication())).
-                get(MJTimeViewModel.class);
+                get(TimeViewModel.class);
         RecyclerView recyclerView = findViewById(R.id.activity_main_recyclerview);
-        MJTimeAdapter adapter = new MJTimeAdapter(new MJTimeAdapter.DiffCallback(), timeViewModel);
+        TimeAdapter adapter = new TimeAdapter(new TimeAdapter.DiffCallback(), timeViewModel);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setItemAnimator(null);
-        timeViewModel.getAllTime().observe(this, new Observer<List<MJTime>>() {
+        timeViewModel.getAllTime().observe(this, new Observer<List<Time>>() {
             @Override
-            public void onChanged(List<MJTime> times) {
+            public void onChanged(List<Time> times) {
                 adapter.submitList(times);
                 recyclerView.scrollToPosition(times.size() - 1);
             }
@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
                 Calendar calendar = Calendar.getInstance();
                 Date time = calendar.getTime();
                 String formatDate = dateFormat.format(time);
-                MJTime mJTime = new MJTime(formatDate);
+                Time mJTime = new Time(formatDate);
                 timeViewModel.insert(mJTime);
                 Toast.makeText(view.getContext(), "inserting " +
                         mJTime.getCurrentTime(), Toast.LENGTH_SHORT).show();
@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onSwiped(RecyclerView.ViewHolder viewHolder,
                                          int direction) {
                         int position = viewHolder.getAdapterPosition();
-                        MJTime time = adapter.getTimeAtPosition(position);
+                        Time time = adapter.getTimeAtPosition(position);
                         Toast.makeText(MainActivity.this, "Deleting " +
                                 time.getCurrentTime(), Toast.LENGTH_SHORT).show();
                         timeViewModel.delete(time);

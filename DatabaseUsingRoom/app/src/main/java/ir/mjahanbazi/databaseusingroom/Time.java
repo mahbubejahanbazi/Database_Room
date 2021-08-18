@@ -6,7 +6,7 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "table_time")
-public class MJTime {
+public class Time {
     @PrimaryKey(autoGenerate = true)
     @NonNull
     @ColumnInfo(name = "id")
@@ -15,7 +15,7 @@ public class MJTime {
     @ColumnInfo(name = "current_time")
     private String currentTime;
 
-    public MJTime(@NonNull String currentTime) {
+    public Time(@NonNull String currentTime) {
         this.currentTime = currentTime;
     }
 

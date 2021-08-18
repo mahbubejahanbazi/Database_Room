@@ -10,19 +10,19 @@ import androidx.room.Query;
 import java.util.List;
 
 @Dao
-public interface MJTimeDao {
+public interface TimeDao {
     @Query("select * from table_time order by current_time asc ;")
-    LiveData<List<MJTime>> getAllTime();
+    LiveData<List<Time>> getAllTime();
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    void insert(MJTime currentTime);
+    void insert(Time currentTime);
 
     @Query("UPDATE table_time SET `current_time` = :currentTime WHERE id =:id")
-    void update(long id, String currentTime);
+    void update(long id, String  currentTime);
 
     @Delete
-    void delete(MJTime currentTime);
+    void delete(Time currentTime);
 
-    @Query("delete from table_time ;")
+    @Query("delete from table_time ")
     void deleteAll();
 }
