@@ -8,6 +8,9 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -40,8 +43,12 @@ public abstract class TimeDatabase extends RoomDatabase {
             databaseExecuter.execute(() -> {
                 TimeDao dao = instance.getTimeDao();
                 dao.deleteAll();
-                Time time = new Time(System.currentTimeMillis() + "");
-                dao.insert(time);
+                String pattern = "EEEE dd MMMM - hh: mm: ss";
+                SimpleDateFormat dateFormat = new SimpleDateFormat(pattern);
+                Calendar calendar = Calendar.getInstance();
+                Date time = calendar.getTime();
+                String formatDate = dateFormat.format(time);
+                dao.insert(new Time(formatDate));
 
             });
         }
