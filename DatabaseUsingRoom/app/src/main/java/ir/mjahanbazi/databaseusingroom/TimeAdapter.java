@@ -26,7 +26,9 @@ public class TimeAdapter extends ListAdapter<Time, TimeViewHolder> {
     @NonNull
     @Override
     public TimeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return TimeViewHolder.create(parent);
+        View view = LayoutInflater.from(parent.getContext()).
+                inflate(R.layout.recyclerview_item, parent, false);
+        return new TimeViewHolder(view);
     }
 
     @Override
@@ -76,12 +78,6 @@ public class TimeAdapter extends ListAdapter<Time, TimeViewHolder> {
 
     public void bind(String str) {
         time.setText(str);
-    }
-
-    public static TimeViewHolder create(ViewGroup viewParent) {
-        View view = LayoutInflater.from(viewParent.getContext()).
-                inflate(R.layout.recyclerview_item, viewParent, false);
-        return new TimeViewHolder(view);
     }
 
 }
